@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ClassExercises</string>
+    <string name="camera">TODO()</string>
+    <string name="aperture">TODO()</string>
+    <string name="focal_length">TODO()</string>
+    <string name="shutter_speed">TODO()</string>
+    <string name="iso">TODO()</string>
+    <string name="dimensions">TODO()</string>
+    <string name="views">TODO()</string>
+    <string name="downloads">TODO()</string>
+    <string name="likes">TODO()</string>
+    <string name="user_name">Wise Chicken</string>
+    <string name="main_tab_images">IMAGES</string>
+    <string name="main_tab_collections">COLLECTIONS</string>
+
+</resources>
