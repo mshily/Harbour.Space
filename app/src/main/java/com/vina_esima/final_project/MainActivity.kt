@@ -7,7 +7,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -34,6 +38,13 @@ import com.vina_esima.final_project.navigation.BottomNavigationScreen
 import com.vina_esima.final_project.ui.theme.FINAL_PROJECTTheme
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +99,7 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                     ) {
                         composable(BottomNavigationScreen.Analytics.route) { AnalyticsScreen() }
-                        composable(BottomNavigationScreen.Home.route)     { HomeScreen() }
+                        composable(BottomNavigationScreen.Home.route)     { MainScreen() }
                         composable(BottomNavigationScreen.About.route)    { AboutScreen() }
                     }
                 }
@@ -99,16 +110,62 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen() {
+fun MainScreenColumn(
+    modifier: Modifier = Modifier
+) {
+    LazyColumn (
+        modifier = modifier.fillMaxSize().padding(8.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+
+        val list = listOf(
+            "start activity",
+            "add exist activity"
+        )
+
+        items(list.size) {
+            Card(
+                modifier = Modifier.padding(8.dp)
+                    .fillMaxSize()
+                    .height(200.dp)
+                    .clip(RoundedCornerShape(16.dp)),
+                onClick = {
+                    TODO()
+                },
+                shape = RoundedCornerShape(16.dp),
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = list[it],
+                        textAlign = TextAlign.Center,
+                        fontSize = 22.sp
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun MainScreen(
+    modifier: Modifier = Modifier
+) {
+    MainScreenColumn(modifier)
+}
+
+@Composable
+fun AnalyticsScreen(
+    modifier: Modifier = Modifier
+) {
 
 }
 
 @Composable
-fun AnalyticsScreen() {
-
-}
-
-@Composable
-fun AboutScreen() {
+fun AboutScreen(
+    modifier: Modifier = Modifier
+) {
 
 }
