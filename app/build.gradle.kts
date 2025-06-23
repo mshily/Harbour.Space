@@ -2,7 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    id("kotlin-parcelize")
+    id("com.google.devtools.ksp")
 }
+
 
 android {
     namespace = "com.vina_esima.final_project"
@@ -56,4 +60,23 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-moshi:3.0.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
+
+    implementation("io.coil-kt.coil3:coil-compose:3.2.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
+
+    implementation("androidx.compose.material:material:1.8.2")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.5.0")
+    implementation ("androidx.navigation:navigation-compose:2.5.3")
+
+    val roomVersion = "2.7.2"
+    implementation("androidx.room:room-runtime:$roomVersion")
+    ksp("androidx.room:room-compiler:$roomVersion")
+
+    implementation("androidx.room:room-ktx:$roomVersion")
+
 }
