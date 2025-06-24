@@ -1,16 +1,14 @@
 package com.vina_esima.final_project
 
-import android.R.attr.icon
-import android.R.attr.label
-import android.R.attr.onClick
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,14 +19,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -37,7 +30,6 @@ import androidx.navigation.compose.rememberNavController
 import com.vina_esima.final_project.navigation.BottomNavigationScreen
 import com.vina_esima.final_project.ui.theme.FINAL_PROJECTTheme
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -45,14 +37,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.vina_esima.final_project.mainactivity.AddNewActivityActivity
+import com.vina_esima.final_project.mainactivity.DeleteActivityActivity
+import com.vina_esima.final_project.mainactivity.DeleteActivityActivityScreen
+import com.vina_esima.final_project.mainactivity.StartActivityActivity
 
 class MainActivity : ComponentActivity() {
+    val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             FINAL_PROJECTTheme {
-                val viewModel: MainViewModel = viewModel()
+
+                val onClickToStartActivityActivity: () -> Unit = {
+                    intent = Intent(this@MainActivity, StartActivityActivity::class.java)
+                    startActivity(intent)
+                }
+                val onClickToAddNewActivityActivity: () -> Unit = {
+                    intent = Intent(this@MainActivity, AddNewActivityActivity::class.java)
+                    startActivity(intent)
+                }
+
+                val onClickToDeleteActivityActivity: () -> Unit = {
+                    intent = Intent(this@MainActivity, DeleteActivityActivity::class.java)
+                    startActivity(intent)
+                }
+
                 val selectedScreen by viewModel.selectedScreen.observeAsState(
                     BottomNavigationScreen.Home
                 )
@@ -76,7 +88,7 @@ class MainActivity : ComponentActivity() {
                                         viewModel.selectScreen(screen)
                                         navController.navigate(screen.route)
                                     },
-                                    icon     = {
+                                    icon = {
                                         Icon(
                                             painter = painterResource(id = screen.drawResId),
                                             contentDescription = null,
@@ -99,7 +111,11 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                     ) {
                         composable(BottomNavigationScreen.Analytics.route) { AnalyticsScreen() }
-                        composable(BottomNavigationScreen.Home.route)     { MainScreen() }
+                        composable(BottomNavigationScreen.Home.route)     {
+                            MainScreen(onClickToStartActivityActivity = onClickToStartActivityActivity,
+                                onClickToAddNewActivityActivity = onClickToAddNewActivityActivity,
+                                onClickToDeleteActivityActivity = onClickToDeleteActivityActivity)
+                        }
                         composable(BottomNavigationScreen.About.route)    { AboutScreen() }
                     }
                 }
@@ -111,7 +127,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreenColumn(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickToStartActivityActivity: () -> Unit,
+    onClickToAddNewActivityActivity: () -> Unit,
+    onClickToDeleteActivityActivity: () ->  Unit
 ) {
     LazyColumn (
         modifier = modifier.fillMaxSize().padding(8.dp),
@@ -119,8 +138,9 @@ fun MainScreenColumn(
     ) {
 
         val list = listOf(
-            "start activity",
-            "add exist activity"
+            Pair("start activity", onClickToStartActivityActivity),
+            Pair("add a new activity", onClickToAddNewActivityActivity),
+            Pair("delete an activity", onClickToDeleteActivityActivity)
         )
 
         items(list.size) {
@@ -130,7 +150,7 @@ fun MainScreenColumn(
                     .height(200.dp)
                     .clip(RoundedCornerShape(16.dp)),
                 onClick = {
-                    TODO()
+                    list[it].second()
                 },
                 shape = RoundedCornerShape(16.dp),
             ) {
@@ -139,7 +159,7 @@ fun MainScreenColumn(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = list[it],
+                        text = list[it].first,
                         textAlign = TextAlign.Center,
                         fontSize = 22.sp
                     )
@@ -151,9 +171,15 @@ fun MainScreenColumn(
 
 @Composable
 fun MainScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickToStartActivityActivity: () -> Unit,
+    onClickToAddNewActivityActivity: () -> Unit,
+    onClickToDeleteActivityActivity: () -> Unit
 ) {
-    MainScreenColumn(modifier)
+    MainScreenColumn(modifier,
+        onClickToStartActivityActivity,
+        onClickToAddNewActivityActivity,
+        onClickToDeleteActivityActivity)
 }
 
 @Composable

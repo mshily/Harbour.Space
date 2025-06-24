@@ -23,6 +23,42 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.vina_esima.final_project.mainactivity.StartActivityActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FINAL_PROJECT">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.vina_esima.final_project.mainactivity.AddNewActivityActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FINAL_PROJECT">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.vina_esima.final_project.mainactivity.DeleteActivityActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FINAL_PROJECT">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
