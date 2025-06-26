@@ -13,7 +13,7 @@
         android:theme="@style/Theme.FINAL_PROJECT"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FINAL_PROJECT">
@@ -25,15 +25,19 @@
         </activity>
 
         <activity
-            android:name="com.vina_esima.final_project.mainactivity.StartActivityActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FINAL_PROJECT">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.vina_esima.final_project.mainactivity.starting.StartActivityActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FINAL_PROJECT">
+
         </activity>
 
         <activity
@@ -41,24 +45,31 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FINAL_PROJECT">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
-            android:name="com.vina_esima.final_project.mainactivity.DeleteActivityActivity"
+            android:name="com.vina_esima.final_project.mainactivity.entries.AddExistingEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FINAL_PROJECT">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.vina_esima.final_project.mainactivity.starting.ViewStartActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FINAL_PROJECT">
+        </activity>
+
+        <activity
+            android:name="com.vina_esima.final_project.analytics.ViewAnalyticsActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FINAL_PROJECT">
+        </activity>
+
     </application>
 
 </manifest>

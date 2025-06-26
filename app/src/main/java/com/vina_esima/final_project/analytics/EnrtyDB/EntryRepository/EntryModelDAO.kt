@@ -20,4 +20,13 @@ interface EntryModelDAO {
 
     @Query("DELETE FROM entry where id = :id")
     fun deleteById(id: String)
+
+    @Query("DELETE FROM entry where id = :id")
+    fun get(id: String)
+
+    @Query("SELECT COUNT(*) FROM entry WHERE day = :name")
+    fun getCountEntriesInDay(name: String): Int
+
+    @Query("SELECT * FROM entry WHERE day = :dayString")
+    fun getEntriesForDay(dayString: String): LiveData<List<EntryModel>>
 }

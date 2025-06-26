@@ -3,4 +3,6 @@
     <string name="navigation_home">Main</string>
     <string name="navigation_analytics">Analytics</string>
     <string name="navigation_about">About</string>
+    <string name="navigation_list">List</string>
+    <string name="navigation_analytic">Analytics</string>
 </resources>

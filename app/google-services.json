@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "682688234982",
+    "project_id": "harbout-space-final-project",
+    "storage_bucket": "harbout-space-final-project.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682688234982:android:872293c610060f13ea4227",
+        "android_client_info": {
+          "package_name": "com.vina_esima.final_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3NOaWDYO6-M4YgunPMd9sTTvjxMgmGcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

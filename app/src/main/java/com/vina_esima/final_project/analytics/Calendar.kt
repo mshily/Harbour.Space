@@ -1,34 +1,19 @@
 package com.vina_esima.final_project.analytics
 
-const val FIRST_YEAR = 2023
-
-
-class Calendar {
-    val years: List <year> = TODO()
-
-}
-class year {
-    val year: Int = 0
-    val months: List <month> = TODO()
-}
-class month {
-    val month: Int = 0
-    val days: List <day> = TODO()
-}
-class day {
-    val day: Int = 0
-    val hours: List <entry> = TODO()
+class date(year1: Int, month1: Int, day1: Int, hour1: Int, minute1: Int, second1: Int) {
+    val year: Int = year1
+    val month: Int = month1
+    val day: Int = day1
+    val hour: Int = hour1
+    val minute: Int = minute1
+    val second: Int = second1
 }
 
-class dateInDay {
-    val hour: Int = 0
-    val minutes: Int = 0
-    val seconds: Int = 0
+
+class dateDay(year1: Int, month1: Int, day1: Int) {
+    val year: Int = year1
+    val month: Int = month1
+    val day: Int = day1
 }
 
-class entry {
-    val start: dateInDay = TODO()
-    val end: dateInDay = TODO()
-    val activity: String = ""
-}
 

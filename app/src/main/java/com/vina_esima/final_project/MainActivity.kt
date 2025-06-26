@@ -6,10 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -17,30 +14,26 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.vina_esima.final_project.navigation.BottomNavigationScreen
 import com.vina_esima.final_project.ui.theme.FINAL_PROJECTTheme
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.vina_esima.final_project.analytics.ViewAnalyticsActivity
 import com.vina_esima.final_project.mainactivity.AddNewActivityActivity
-import com.vina_esima.final_project.mainactivity.DeleteActivityActivity
-import com.vina_esima.final_project.mainactivity.DeleteActivityActivityScreen
-import com.vina_esima.final_project.mainactivity.StartActivityActivity
+import com.vina_esima.final_project.mainactivity.entries.AddExistingEntryActivity
+import com.vina_esima.final_project.mainactivity.starting.StartActivityActivity
+import com.vina_esima.final_project.mainactivity.items.AboutScreen
+import com.vina_esima.final_project.mainactivity.items.AnalyticsScreen
+import com.vina_esima.final_project.mainactivity.items.MainScreen
 
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()
@@ -51,6 +44,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             FINAL_PROJECTTheme {
 
+                val goToViewAnalyticsActivity: (year: Int, month: Int, day: Int) -> Unit = { year, month, day ->
+                    intent = Intent(this@MainActivity, ViewAnalyticsActivity::class.java)
+                    intent.putExtra("year", year)
+                    intent.putExtra("month", month)
+                    intent.putExtra("day", day)
+                    startActivity(intent)
+                }
+
+                val onLogOut = {
+                    Firebase.auth.signOut()
+                    intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                }
                 val onClickToStartActivityActivity: () -> Unit = {
                     intent = Intent(this@MainActivity, StartActivityActivity::class.java)
                     startActivity(intent)
@@ -61,7 +67,7 @@ class MainActivity : ComponentActivity() {
                 }
 
                 val onClickToDeleteActivityActivity: () -> Unit = {
-                    intent = Intent(this@MainActivity, DeleteActivityActivity::class.java)
+                    intent = Intent(this@MainActivity, AddExistingEntryActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -110,13 +116,18 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding)
                             .fillMaxSize()
                     ) {
-                        composable(BottomNavigationScreen.Analytics.route) { AnalyticsScreen() }
+                        composable(BottomNavigationScreen.Analytics.route) { AnalyticsScreen(
+                            modifier = Modifier,
+                            onGoToViewAnalyticsActivity = goToViewAnalyticsActivity
+                        ) }
                         composable(BottomNavigationScreen.Home.route)     {
                             MainScreen(onClickToStartActivityActivity = onClickToStartActivityActivity,
                                 onClickToAddNewActivityActivity = onClickToAddNewActivityActivity,
                                 onClickToDeleteActivityActivity = onClickToDeleteActivityActivity)
                         }
-                        composable(BottomNavigationScreen.About.route)    { AboutScreen() }
+                        composable(BottomNavigationScreen.About.route)  { AboutScreen(
+                            onLogOut = onLogOut
+                        ) }
                     }
                 }
 
@@ -125,73 +136,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun MainScreenColumn(
-    modifier: Modifier = Modifier,
-    onClickToStartActivityActivity: () -> Unit,
-    onClickToAddNewActivityActivity: () -> Unit,
-    onClickToDeleteActivityActivity: () ->  Unit
-) {
-    LazyColumn (
-        modifier = modifier.fillMaxSize().padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-
-        val list = listOf(
-            Pair("start activity", onClickToStartActivityActivity),
-            Pair("add a new activity", onClickToAddNewActivityActivity),
-            Pair("delete an activity", onClickToDeleteActivityActivity)
-        )
-
-        items(list.size) {
-            Card(
-                modifier = Modifier.padding(8.dp)
-                    .fillMaxSize()
-                    .height(200.dp)
-                    .clip(RoundedCornerShape(16.dp)),
-                onClick = {
-                    list[it].second()
-                },
-                shape = RoundedCornerShape(16.dp),
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = list[it].first,
-                        textAlign = TextAlign.Center,
-                        fontSize = 22.sp
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun MainScreen(
-    modifier: Modifier = Modifier,
-    onClickToStartActivityActivity: () -> Unit,
-    onClickToAddNewActivityActivity: () -> Unit,
-    onClickToDeleteActivityActivity: () -> Unit
-) {
-    MainScreenColumn(modifier,
-        onClickToStartActivityActivity,
-        onClickToAddNewActivityActivity,
-        onClickToDeleteActivityActivity)
-}
-
-@Composable
-fun AnalyticsScreen(
-    modifier: Modifier = Modifier
-) {
-
-}
-
-@Composable
-fun AboutScreen(
-    modifier: Modifier = Modifier
-) {
-
-}

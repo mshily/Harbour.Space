@@ -4,7 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryModel
+import com.vina_esima.final_project.analytics.EnrtyDB.dateConverter
 import java.util.concurrent.Executors
 
 @Database(
@@ -14,8 +18,9 @@ import java.util.concurrent.Executors
     version = 1,
     exportSchema = false
 )
+@TypeConverters(dateConverter::class)
 abstract class EntryDatabase : RoomDatabase() {
-    abstract fun activitiesDao(): EntryModelDAO
+    abstract fun entryDao(): EntryModelDAO
 
     companion object {
         @Volatile
@@ -24,7 +29,7 @@ abstract class EntryDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): EntryDatabase {
             return INSTANCE ?: synchronized(this) {
-                val db = Room.databaseBuilder(context,  EntryDatabase::class.java,  "db" ).build()
+                val db = Room.databaseBuilder(context,  EntryDatabase::class.java,  "entry_db" ).build()
                 INSTANCE = db
                 db
             }
