@@ -2,6 +2,7 @@ package com.vina_esima.final_project
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -43,6 +44,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FINAL_PROJECTTheme {
+                Log.d("LoginActivity", "onCreate")
 
                 val goToViewAnalyticsActivity: (year: Int, month: Int, day: Int) -> Unit = { year, month, day ->
                     intent = Intent(this@MainActivity, ViewAnalyticsActivity::class.java)

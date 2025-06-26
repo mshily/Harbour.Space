@@ -1,6 +1,7 @@
 package com.vina_esima.final_project
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,9 +12,14 @@ import com.vina_esima.final_project.ActivityButtonDB.model.repository.AppDatabas
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryModel
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryRepository.EntryDatabase
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryRepository.EntryRepository
+import com.vina_esima.final_project.data.data.SearchItem
+import com.vina_esima.final_project.data.data.UnsplashApiProvider
+import com.vina_esima.final_project.data.data.UnsplashItem
+import com.vina_esima.final_project.data.data.cb.UnsplashResult
 import com.vina_esima.final_project.navigation.BottomNavigationView
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class MainViewModel(application: Application
+) : AndroidViewModel(application) {
 
     // data bases
     private val database = AppDatabase.getDatabase(application)
@@ -77,5 +83,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun selectScreenView(screen: BottomNavigationView) {
         _selectedScreenView.value = screen
     }
+
 
 }

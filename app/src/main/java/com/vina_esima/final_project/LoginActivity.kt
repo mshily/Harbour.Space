@@ -21,11 +21,15 @@ import com.google.firebase.auth.auth
 import com.vina_esima.final_project.ui.theme.FINAL_PROJECTTheme
 
 class LoginActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("LoginActivity", "onCreate")
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             FINAL_PROJECTTheme {
+
 
                 val goToMainActivity: () -> Unit = {
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)

@@ -9,20 +9,32 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import coil3.compose.rememberAsyncImagePainter
+import coil3.request.ImageRequest
 import com.vina_esima.final_project.MainViewModel
 import com.vina_esima.final_project.R
+import com.vina_esima.final_project.UnsplashViewModel
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryModel
 import com.vina_esima.final_project.converters._toDate
 import com.vina_esima.final_project.converters._toDateDay
+import com.vina_esima.final_project.data.data.UnsplashItem
 import com.vina_esima.final_project.ui.theme.FINAL_PROJECTTheme
 import java.time.Instant
 import java.time.ZoneId
@@ -32,6 +44,7 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class)
 class ViewStartActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
+    private val unsplashViewModel: UnsplashViewModel by viewModels()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,7 +78,9 @@ class ViewStartActivity : ComponentActivity() {
                             .padding(padding)
                             .fillMaxSize(),
                         viewModel = viewModel,
-                        activityName = activityName
+                        activityName = activityName,
+                        unsplashViewModel = unsplashViewModel,
+                        onSearch = unsplashViewModel::search
                     )
                 }
             }
@@ -79,7 +94,9 @@ class ViewStartActivity : ComponentActivity() {
 fun ViewStartActivityScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel,
-    activityName: String
+    unsplashViewModel: UnsplashViewModel,
+    activityName: String,
+    onSearch: (String) -> Unit
 ) {
     var seconds by remember { mutableStateOf(0) }
     var isRunning by remember { mutableStateOf(false) }
@@ -113,34 +130,75 @@ fun ViewStartActivityScreen(
         }
         onDispose { timer?.cancel() }
     }
+    val images = unsplashViewModel.images.observeAsState(emptyList())
+    Log.d("ViewStartActivityScreen", "images: ${images.value}")
+    onSearch(activityName)
+    if (images.value.isEmpty()) return
+    val image = images.value[0]
 
     Box(modifier = modifier.background(MaterialTheme.colorScheme.background)) {
         Column(
             modifier = Modifier
-                .align(Alignment.TopCenter)
-                .padding(top = 48.dp, start = 32.dp, end = 32.dp),
+                .fillMaxSize()
+                .padding(32.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(32.dp)
+            verticalArrangement = Arrangement.spacedBy(48.dp)
         ) {
-            Text(
-                text = formattedTime,
-                style = MaterialTheme.typography.displayMedium,
-                textAlign = TextAlign.Center
-            )
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(24.dp))
+            ) {
+                val painter = rememberAsyncImagePainter(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(image.urls?.regular)
+                        .build()
+                )
 
-            Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
+                Image(
+                    painter = painter,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize()
+                )
+
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.9f))
+                        .padding(32.dp)
+                ) {
+                    Text(
+                        text = formattedTime,
+                        style = MaterialTheme.typography.displayLarge.copy(fontSize = 64.sp),
+                        color = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(24.dp),
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Button(
                     onClick = { isRunning = true },
                     enabled = !isRunning,
                     shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier.height(48.dp)
+                    modifier = Modifier
+                        .height(56.dp)
+                        .weight(1f)
                 ) { Text("Start") }
 
                 Button(
                     onClick = { if (isRunning) showConfirmDialog = true },
                     enabled = isRunning,
                     shape = MaterialTheme.shapes.medium,
-                    modifier = Modifier.height(48.dp)
+                    modifier = Modifier
+                        .height(56.dp)
+                        .weight(1f)
                 ) { Text("Stop") }
             }
         }
