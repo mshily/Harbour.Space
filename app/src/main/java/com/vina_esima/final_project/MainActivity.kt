@@ -7,7 +7,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,9 +32,9 @@ import com.vina_esima.final_project.analytics.ViewAnalyticsActivity
 import com.vina_esima.final_project.mainactivity.AddNewActivityActivity
 import com.vina_esima.final_project.mainactivity.entries.AddExistingEntryActivity
 import com.vina_esima.final_project.mainactivity.starting.StartActivityActivity
-import com.vina_esima.final_project.mainactivity.items.AboutScreen
-import com.vina_esima.final_project.mainactivity.items.AnalyticsScreen
-import com.vina_esima.final_project.mainactivity.items.MainScreen
+import com.vina_esima.final_project.mainactivity.MainItems.AboutScreen
+import com.vina_esima.final_project.mainactivity.MainItems.AnalyticsScreen
+import com.vina_esima.final_project.mainactivity.MainItems.MainScreen
 
 class MainActivity : ComponentActivity() {
     val viewModel: MainViewModel by viewModels()

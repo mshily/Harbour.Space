@@ -11,7 +11,6 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -23,7 +22,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.rememberAsyncImagePainter
@@ -34,7 +32,6 @@ import com.vina_esima.final_project.UnsplashViewModel
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryModel
 import com.vina_esima.final_project.converters._toDate
 import com.vina_esima.final_project.converters._toDateDay
-import com.vina_esima.final_project.data.data.UnsplashItem
 import com.vina_esima.final_project.ui.theme.FINAL_PROJECTTheme
 import java.time.Instant
 import java.time.ZoneId

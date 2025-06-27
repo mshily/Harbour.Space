@@ -1,4 +1,4 @@
-package com.vina_esima.final_project.mainactivity.items
+package com.vina_esima.final_project.mainactivity.MainItems
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box

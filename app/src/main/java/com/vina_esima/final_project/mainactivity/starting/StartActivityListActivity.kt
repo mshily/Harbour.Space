@@ -1,6 +1,5 @@
 package com.vina_esima.final_project.mainactivity.starting
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
