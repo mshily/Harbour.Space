@@ -44,7 +44,6 @@ class MainViewModel(application: Application
         entryRepository.deleteByID(entry.id)
     }
 
-
     fun getEntriesForDay(year: Int, month: Int, day: Int): LiveData<List<EntryModel>> {
         val dayString = "%04d:%02d:%02d".format(year, month, day)
         return entryRepository.getEntriesForDay(dayString)
