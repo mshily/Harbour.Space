@@ -123,7 +123,6 @@ fun StartActivityScreen(
     }
 }
 
-/** Single row with pill button and compact circular × delete handle. */
 @Composable
 private fun ActivityItem(
     name: String,
@@ -145,7 +144,6 @@ private fun ActivityItem(
             Text(name, textAlign = TextAlign.Center)
         }
 
-        // 24‑dp circular delete button matching Daily List style
         Box(
             modifier = Modifier
                 .size(24.dp)

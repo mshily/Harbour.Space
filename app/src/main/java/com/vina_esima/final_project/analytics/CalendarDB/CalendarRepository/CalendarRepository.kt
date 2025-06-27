@@ -8,11 +8,6 @@ import com.vina_esima.final_project.analytics.EnrtyDB.EntryModel
 class CalendarRepository(private val CalendarDao: CalendarModelDAO) {
     val allEntries:  LiveData<List<CalendarModel>> = CalendarDao.getAll()
 
-    fun insert(calendar: CalendarModel) {
-        AppDatabase.databaseWriteExecutor.execute {
-            CalendarDao.insert(calendar)
-        }
-    }
 
     fun deleteAll() {
         AppDatabase.databaseWriteExecutor.execute {

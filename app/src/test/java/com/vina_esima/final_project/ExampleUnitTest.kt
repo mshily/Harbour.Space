@@ -1,14 +1,14 @@
 package com.vina_esima.final_project
 
+import com.vina_esima.final_project.analytics.EnrtyDB.EntryModel
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Before
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
+import org.mockito.kotlin.argumentCaptor
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {

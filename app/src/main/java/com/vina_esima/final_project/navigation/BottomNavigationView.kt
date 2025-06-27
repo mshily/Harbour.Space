@@ -2,12 +2,7 @@ package com.vina_esima.final_project.navigation
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.material.icons.Icons
 import com.vina_esima.final_project.R
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 
 sealed class BottomNavigationView (
     val route: String,

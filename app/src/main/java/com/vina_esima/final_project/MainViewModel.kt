@@ -1,7 +1,6 @@
 package com.vina_esima.final_project
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,10 +11,6 @@ import com.vina_esima.final_project.ActivityButtonDB.model.repository.AppDatabas
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryModel
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryRepository.EntryDatabase
 import com.vina_esima.final_project.analytics.EnrtyDB.EntryRepository.EntryRepository
-import com.vina_esima.final_project.data.data.SearchItem
-import com.vina_esima.final_project.data.data.UnsplashApiProvider
-import com.vina_esima.final_project.data.data.UnsplashItem
-import com.vina_esima.final_project.data.data.cb.UnsplashResult
 import com.vina_esima.final_project.navigation.BottomNavigationView
 
 class MainViewModel(application: Application
@@ -25,21 +20,12 @@ class MainViewModel(application: Application
     private val database = AppDatabase.getDatabase(application)
     private val repository = ActivitiesRepository(database.activitiesDao())
 
-
     fun getActivitiesFromDatabase(): LiveData<List<ActivityButtonsModel>> {
         return repository.allActivities
     }
 
-    fun addActivity(activity: ActivityButtonsModel) {
-        repository.insert(activity)
-    }
-
     fun deleteActivityByName(name: String) {
         repository.deleteByName(name)
-    }
-
-    fun deleteAllActivities() {
-        repository.deleteAll()
     }
 
     fun addActivity(name: String) {
@@ -60,7 +46,7 @@ class MainViewModel(application: Application
 
 
     fun getEntriesForDay(year: Int, month: Int, day: Int): LiveData<List<EntryModel>> {
-        val dayString = "$year:$month:$day"
+        val dayString = "%04d:%02d:%02d".format(year, month, day)
         return entryRepository.getEntriesForDay(dayString)
     }
 
@@ -83,6 +69,4 @@ class MainViewModel(application: Application
     fun selectScreenView(screen: BottomNavigationView) {
         _selectedScreenView.value = screen
     }
-
-
 }

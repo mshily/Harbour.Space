@@ -41,6 +41,7 @@ fun ViewAnalyticsScreen(
         Color(0xFF9C27B0), Color(0xFFFF9800), Color(0xFF00BCD4), Color(0xFF8BC34A),
         Color(0xFF795548), Color(0xFFE91E63)
     )
+
     val activityColors = remember(sortedEntries) {
         sortedEntries.mapIndexed { i, e -> e.key to palette[i % palette.size] }.toMap()
     }
@@ -67,6 +68,7 @@ fun ViewAnalyticsScreen(
                     .aspectRatio(1f)
                     .align(Alignment.CenterHorizontally)
             )
+
             Spacer(Modifier.height(12.dp))
             ActivityLegend(sortedEntries, activityColors)
             Spacer(Modifier.height(12.dp))

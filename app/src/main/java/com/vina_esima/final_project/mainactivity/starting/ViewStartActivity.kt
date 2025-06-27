@@ -268,7 +268,7 @@ private fun saveEntryToDatabase(
         val dayStr = startStr.substring(0, 10)
 
         val entry = EntryModel(
-            id = "${currentStart.toEpochMilli()}-${currentEnd.toEpochMilli()}-$activityName",
+            id = "${currentStart.toEpochMilli()}:${currentEnd.toEpochMilli()}:$dayStr:$activityName",
             start = _toDate(startStr),
             end = _toDate(endStr),
             day = _toDateDay(dayStr),

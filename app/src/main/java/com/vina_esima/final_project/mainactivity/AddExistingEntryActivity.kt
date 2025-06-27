@@ -27,7 +27,6 @@ import com.vina_esima.final_project.ui.theme.FINAL_PROJECTTheme
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.time.format.ResolverStyle
 import kotlin.Boolean
 
 
@@ -88,7 +87,7 @@ private fun AddEntryScreen(
     @RequiresApi(Build.VERSION_CODES.O)
     fun save() {
         try {
-            val fmt  = DateTimeFormatter.ofPattern("yyyy:MM:dd:HH:mm:ss")
+            val fmt = DateTimeFormatter.ofPattern("yyyy:MM:dd:HH:mm:ss")
             val zone = ZoneId.systemDefault()
 
             val startInstant = LocalDateTime
@@ -118,11 +117,11 @@ private fun AddEntryScreen(
                     if (endInstant.isBefore(nextMidnight)) endInstant else nextMidnight
 
                 val startStr = fmt.format(currentStart.atZone(zone))
-                val endStr   = fmt.format(currentEnd.atZone(zone))
-                val dayStr   = startStr.substring(0, 10)
+                val endStr = fmt.format(currentEnd.atZone(zone))
+                val dayStr = startStr.substring(0, 10)
 
                 val entry = EntryModel(
-                    id = "$startStr-$endStr-$activityName",
+                    id = "$startStr:$endStr:$dayStr:$activityName",
                     start = _toDate(startStr),
                     end = _toDate(endStr),
                     day = _toDateDay(dayStr),

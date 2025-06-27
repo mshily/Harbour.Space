@@ -16,13 +16,16 @@ fun _toDateDay(value: String): dateDay {
 }
 
 fun _fromDateDay(value: dateDay): String {
-    return value.year.toString() + ":" + value.month.toString() + ":" + value.day.toString()
+    return "%04d:%02d:%02d".format(value.year, value.month, value.day)
 }
 
 fun _fromDate(value: date): String {
-    return value.year.toString() + ":" + value.month.toString() + ":" + value.day.toString() + ":" +
-            value.hour.toString() + ":" + value.minute.toString() + ":" + value.second.toString()
+    return "%04d:%02d:%02d:%02d:%02d:%02d".format(
+        value.year, value.month, value.day,
+        value.hour, value.minute, value.second
+    )
 }
+
 fun _toDate(value: String): date {
     val parts = value.split(":")
     val year = parts.getOrNull(0)?.toIntOrNull() ?: 0
