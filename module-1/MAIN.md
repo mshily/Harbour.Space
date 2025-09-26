@@ -32,7 +32,7 @@ D_{\mathbf u} f(\mathbf x)
 $$
 
 Here, $\alpha_i$ is the angle between the unit direction vector $\mathbf{u}$ and the $i$-th coordinate axis (basis vector $\mathbf{e}_i$). In an orthonormal basis, the direction cosine is
-$ \cos\alpha_i = \mathbf{u} \cdot \mathbf{e}_i = u_i $.
+$\cos\alpha_i = \mathbf{u} \cdot \mathbf{e}_i = u_i$.
 
 **Example.**
 If $f(x,y)=x^2+3y$, then $\nabla f(x,y)=(2x,\,3)$.
@@ -41,12 +41,12 @@ If $f(x,y)=x^2+3y$, then $\nabla f(x,y)=(2x,\,3)$.
 The main problem is find minimum of scalar function $f:\mathbb{R^n} \to \mathbb{R}$:
 
 $$
-\min_{x \in \mathbb{R}^n}\; f(x)
+\min_{x \in \mathbb{R}^n} f(x)
 $$
 
 Let us always be able to calculate the gradient of $f(x)$. Let's look at 3 varieties:
-- Constant-step gradient descent method;
-- Gradient descent method with fractional steps;
+- Constant-step gradient descent method
+- Gradient descent method with fractional steps
 - Steepest descent method.
 
 ### Algo
@@ -54,7 +54,7 @@ As is known (easy to check yourself) the fastest descent has the value opposite 
 The core idea is to move the iterate in the **direction of greatest decrease**—the negative gradient. At iteration $k$ we update
 
 $$
-x^{[k+1]} \;=\; x^{[k]} \;-\; \lambda^{[k]}\,\nabla f\!\big(x^{[k]}\big),
+x^{[k+1]} \=\ x^{[k]} - \lambda^{[k]}\,\nabla f\big(x^{[k]}\big),
 $$
 
 where the stepsize $\lambda^{[k]}$ can be chosen in different ways:
@@ -64,23 +64,23 @@ where the stepsize $\lambda^{[k]}$ can be chosen in different ways:
 - **Steepest-descent line search:** pick the best step along the ray
 
 $$
-\lambda^{[k]} \;=\; \arg\min_{\lambda\ge 0}\; f\!\big(x^{[k]}-\lambda\,\nabla f(x^{[k]})\big).
+\lambda^{[k]} \=\ \arg\min_{\lambda\ge 0}\ f\!\big(x^{[k]}-\lambda\,\nabla f(x^{[k]})\big).
 $$
 
 ### Stop
 And of course we have to stop sooner or later. For this we need to have some rules. Stopping rules for approximate minimization can be based on several signals. Common ones are:
 - **Small iterate change:**  
-  $ \|x^{[k+1]} - x^{[k]}\| \le \varepsilon $
+  $\|x^{[k+1]} - x^{[k]}\| \le \varepsilon$
 - **Small objective change:**  
-  $ \big|\,f(x^{[k+1]}) - f(x^{[k]})\,\big| \le \varepsilon $
+  $\big|\,f(x^{[k+1]}) - f(x^{[k]})\,\big| \le \varepsilon$
 
 Here, $x^{[k]} \in \mathbb{R}^n$ is the point after the $k$-th iteration, and $\varepsilon>0$ is a user-chosen tolerance.
 
 ## Constant-step gradient descent method
 
 So **we will consider functions that satisfy additional regularity conditions** (e.g., Lipschitz gradient) because these assumptions supply the needed curvature control to derive the descent inequality, guarantee sufficient decrease with a simple constant step size, and prove convergence to stationary points. In the fully general differentiable case, no such universal guarantees can be established.
-- The descent lemma can fail, so $f(x^{k+1})$ may increase even with small fixed $\lambda$; monotonicity is lost.
-- We have no control on how fast $\nabla f$ changes, so steps can overshoot, diverge, or enter cycles; $\|\nabla f(x^{k})\|$ need not go to $0$.
+- The descent lemma can fail, so $f(x^{k+1})$ may increase even with small fixed $\lambda$ monotonicity is lost.
+- We have no control on how fast $\nabla f$ changes, so steps can overshoot, diverge, or enter cycles $\|\nabla f(x^{k})\|$ need not go to $0$.
 - Classical $C^1$ counterexamples exist where $\nabla f$ is not Lipschitz (e.g., $f(x)=|x|^{4/3}$ in 1D has $\nabla f(x)=\tfrac{4}{3}\,\mathrm{sign}(x)\,|x|^{1/3}$), and fixed-step GD can oscillate or fail to decrease for many $\lambda$.
 - Being merely “bounded below” does not prevent wandering on large flat regions or around saddles in nonconvex landscapes.
 
@@ -133,7 +133,7 @@ In this variant of the gradient method, the step size $\lambda^{[k]}$ at iterati
 
 $$
 f\!\left(x^{[k+1]}\right)=f\!\left(x^{[k]}-\lambda^{[k]}\nabla f\!\left(x^{[k]}\right)\right)
-\;\le\;
+\le
 f\!\left(x^{[k]}\right)-\varepsilon\,\lambda^{[k]}\,\bigl\|\nabla f\!\left(x^{[k]}\right)\bigr\|^2,
 $$
 
@@ -150,7 +150,7 @@ For each outer iteration $k$:
 3. Accept $\lambda^{[k]} \leftarrow t$ and update
 
 $$
-x^{[k+1]} \;=\; x^{[k]} - \lambda^{[k]}\nabla f\!\left(x^{[k]}\right)
+x^{[k+1]} \=\ x^{[k]} - \lambda^{[k]}\nabla f\!\left(x^{[k]}\right)
 $$
 
 Backtracking guarantees that after a **finite** number of shrink operations the condition will hold, provided $f$ is continuously differentiable and bounded below along the search direction.
@@ -179,13 +179,13 @@ The **steepest descent method** chooses the step length at iteration $k$ by mini
 Given $f:\mathbb{R}^n\to\mathbb{R}$ differentiable and $g^{[k]}=\nabla f(x^{[k]})$, define the ray
 
 $$
-\mathcal{L}_k \;=\; \{\, x^{[k]} - \lambda\, g^{[k]} \;|\; \lambda \ge 0 \,\}.
+\mathcal{L}_k \=\ \{\, x^{[k]} - \lambda\, g^{[k]} \|\ \lambda \ge 0 \,\}.
 $$
 
 The step length is
 
 $$
-\lambda^{[k]} \;=\; \arg\min_{\lambda \ge 0} \; \phi_k(\lambda)
+\lambda^{[k]} \=\ \arg\min_{\lambda \ge 0} \ \phi_k(\lambda)
 \quad\text{where}\quad
 \phi_k(\lambda)= f\!\big(x^{[k]} - \lambda g^{[k]}\big).
 $$
@@ -193,7 +193,7 @@ $$
 Then update
 
 $$
-x^{[k+1]} \;=\; x^{[k]} - \lambda^{[k]} g^{[k]}.
+x^{[k+1]} \=\ x^{[k]} - \lambda^{[k]} g^{[k]}.
 $$
 
 ---
@@ -203,9 +203,9 @@ $$
 - **Orthogonality (with exact line search).**  
   If $\lambda^{[k]}$ minimizes $\phi_k$ exactly and $f$ is $C^1$, then
 
-  $$
-  \nabla f(x^{[k+1]})^\top g^{[k]} \;=\; 0,
-  $$
+$$
+  \nabla f(x^{[k+1]})^\top g^{[k]} \=\ 0,
+$$
 
   i.e., consecutive **search directions are orthogonal** to the previous gradient.  
   For strictly convex quadratics this further implies that **successive gradients are orthogonal**.
@@ -213,9 +213,9 @@ $$
 - **Monotone decrease.**  
   Exact (or sufficiently accurate) line search guarantees
 
-  $$
+$$
   f(x^{[k+1]}) \le f(x^{[k]}).
-  $$
+$$
 
 - **Computational trade-off.**  
   Each outer iteration requires (a) one gradient and (b) solving a **1-D optimization** problem for $\phi_k$.  
